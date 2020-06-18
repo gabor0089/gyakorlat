@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Legújabb kérdések</div>
+                <div class="card-header">Kérdéseid</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,8 +14,9 @@
                         </div>
                     @endif
 
-                    Be vagy lépve!
-                    <br>Itt lesznek a kérdések
+                    @foreach($user->questions as $question)
+                        {{$question->kerdes}}<BR>
+                    @endforeach
                 </div>
             </div>
         </div>

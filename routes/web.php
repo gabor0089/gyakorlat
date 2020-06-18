@@ -19,12 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home','HomeController@index')->name('show');
+Route::get('/question/create','QuestionsController@create');
+Route::post('/question','QuestionsController@store');
+Route::get('/question/{question}', 'QuestionsController@index')->name('show');
