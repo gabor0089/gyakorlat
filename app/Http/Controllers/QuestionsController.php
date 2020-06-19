@@ -17,6 +17,14 @@ class QuestionsController extends Controller
         $user=User::find($question);
         return view('home',['user'=>$user,]);
     }
+
+    public function indexall()
+    {
+        $questions=Question::all()->toArray();
+        //dd($questions);
+        return view('home',['questions'=>$questions]);
+    }
+
     public function create()
     {
     	return view('questions.create');
@@ -25,7 +33,6 @@ class QuestionsController extends Controller
     {
     	$data=request()->validate(['kerdes'=>'required']);
     	auth()->user()->questions()->create($data);
-    	//dd(request()->all());
     	return redirect('/home');
     }
 }

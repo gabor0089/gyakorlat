@@ -50,6 +50,12 @@
                             @endif
                         @else
                             <li class="nav-item">
+                                <a id="" class="nav-link" href="/question/all" role="button" data-toggle="" aria-haspopup="" aria-expanded="false" v-pre>
+                                    Összes kérdés <span class="caret"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a id="" class="nav-link" href="/question/create" role="button" data-toggle="" aria-haspopup="" aria-expanded="false" v-pre>
                                     Új kérdés létrehozása <span class="caret"></span>
                                 </a>
