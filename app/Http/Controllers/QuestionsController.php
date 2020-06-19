@@ -20,19 +20,25 @@ class QuestionsController extends Controller
 
     public function indexall()
     {
-        $questions=Question::all()->toArray();
-        //dd($questions);
-        return view('home',['questions'=>$questions]);
+        $questions=Question::all();
+        return view('home',['questions'=>$questions,]);
     }
 
     public function create()
     {
     	return view('questions.create');
     }
+
     public function store()
     {
-    	$data=request()->validate(['kerdes'=>'required']);
-    	auth()->user()->questions()->create($data);
-    	return redirect('/home');
+        $data=request()->validate(['kerdes'=>'required']);
+        auth()->user()->questions()->create($data);
+        return redirect('/home');
+    }
+
+    public function show(\App\Question $question)
+    {
+        //dd($question);
+        return view('questions.show',compact('question'));
     }
 }
