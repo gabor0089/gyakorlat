@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::post('/tip','AnswersController@tipstore');
 Route::get('/home','HomeController@index')->name('show');
 Route::get('/q/{question}','QuestionsController@show');
 Route::get('/question/create','QuestionsController@create');

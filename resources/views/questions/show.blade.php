@@ -8,8 +8,9 @@
                 <div class="card-header">{{$question->kerdes}} <BR>Válaszadás ekkor: {{ $question->created_at }} + 10 perc. <BR>
                     Te hány perc alatt írod meg a választ?
 
-                    <form method="POST" action="#">
+                    <form method="POST" action="/tip">
                         @csrf
+                        <input id='question_id' type='text' name='question_id' value='{{$question->id}}'>
                         <div class="form-group row">
                             <div class="col-md-2">
                                 <input id="mins" type="text" class="form-control @error('mins') is-invalid @enderror" 
