@@ -45,4 +45,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Answer::class);
     }
+    public function tips()
+    {
+        return $this->hasMany(Tip::class);
+    }
 }

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Question;
+use \App\User;
+use \App\Question;
+use \App\Tip;
 class QuestionsController extends Controller
 {
 	public function __construct()
@@ -36,9 +37,8 @@ class QuestionsController extends Controller
         return redirect('/home');
     }
 
-    public function show(\App\Question $question)
+    public function show(Question $question)
     {
-        //dd($question);
         return view('questions.show',compact('question'));
     }
 }

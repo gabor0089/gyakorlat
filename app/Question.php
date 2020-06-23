@@ -13,7 +13,11 @@ class Question extends Model
     }
     public function answer()
     {
-    	return $this->belongsTo(Answer::class);
+    	return $this->hasMany(Answer::class);
+    }
+    public function tip()
+    {
+    	return $this->hasMany(Tip::class);
     }
 
 }

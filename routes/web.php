@@ -19,7 +19,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::post('/tip','AnswersController@tipstore');
+Route::post('/tip','TipsController@store');
+Route::post('/answer','AnswersController@store');
 Route::get('/home','HomeController@index')->name('show');
 Route::get('/q/{question}','QuestionsController@show');
 Route::get('/question/create','QuestionsController@create');

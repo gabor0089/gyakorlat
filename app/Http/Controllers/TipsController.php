@@ -3,23 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\User;
 use \App\Question;
-use \App\Answer;
+use \App\Tip;
 
-class AnswersController extends Controller
+class TipsController extends Controller
 {
-    public function __construct()
+	 public function __construct()
     {
         $this->middleware('auth');
     }
-
+   
     public function store()
     {
+
         $data=request()->validate([
-        	'valasz'=>'required',
+        	'tip'=>'required',
         	'question_id'=>'required',
         ]);
-        auth()->user()->answers()->create($data);
+        auth()->user()->tips()->create($data);
+        
         return redirect('/q/'.$data['question_id']);
     }
+
 }

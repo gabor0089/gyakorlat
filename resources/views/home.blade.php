@@ -29,7 +29,7 @@
                         </div>
                     @endif
                     @foreach($questions as $question)
-                        <a href="/q/{{ $question['id'] }}">{{ $question['kerdes'] }}</a>
+                        <a href="/q/{{ $question['id'] }}">{{ $question['kerdes'] }}</a><BR>
                     @endforeach
                 @endif
                 </div>

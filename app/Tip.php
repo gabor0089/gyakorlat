@@ -4,11 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Answer extends Model
+class Tip extends Model
 {
-    protected $guarded=[];
      protected $fillable = [
-        'user_id', 'question_id', 'valasz',
+        'tip','question_id',
     ];
 
     public function user()
@@ -19,9 +18,8 @@ class Answer extends Model
     {
     	return $this->belongsTo(Question::class);
     }
-        public function tip()
+        public function answer()
     {
-        return $this->belongsTo(Tip::class);
+        return $this->belongsTo(Answer::class);
     }
-
 }
