@@ -28,8 +28,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
+
                     @foreach($questions as $question)
-                        <a href="/q/{{ $question['id'] }}">{{ $question['kerdes'] }}</a><BR>
+                        <a href="/q/{{ $question['id'] }}">{{ $question->kerdes }} ({{$question->answer->count()}} válasz)</a><BR>
                     @endforeach
                 @endif
                 </div>

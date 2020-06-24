@@ -1,0 +1,27 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+
+.container
+{
+	background-color: #331a00;
+	color:white;
+}
+nav .navbar-nav li a
+{
+  color: white !important;
+}
+nav .navbar-nav .dropdown-item
+{
+  color: white;
+}
+.card
+{
+	background-color: #4d4d33;
+	color:white;
+}
+nav .nav-brand > a { color: white; }
+
+.navbar-default .navbar-brand {
+    color:#000;
+}
+
+

@@ -5,7 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                    @if(!isset($question->tip[0]['tip']))
+                @if($question->tip[0]->user_id == Auth::user()->id) <!--ezen a tömbön kellene végigmenni tip[0],tip[1], hogy 
+                                                                valamelyiknek a user_id-je, a belépett usernek az id-je-e.-->
+                van
+                @endif
+                @if(!isset($question->tip[0]['tip']))
                     <div class="card-header">{{$question->kerdes}} <BR>Válaszadás ekkor: {{ $question->created_at }} + 10 perc. <BR>
                         Te hány perc alatt írod meg a választ?
 
@@ -54,6 +58,13 @@
                             </div>
                         </div>
                     </form>
+                    <h4>Korábbi válaszok</h4>
+                    @if(isset($question->answer))
+                    @foreach ($question->answer as $answer)
+                     <HR>{{$answer->user->name}} {{$answer->created_at}} <BR> {{ $answer->valasz }}   
+                    @endforeach
+                    @endif
+
 
                     @endif
 

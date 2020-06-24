@@ -15,7 +15,7 @@
                     @endif
 
                     @foreach($questions as $question)
-                        <a href='#'>{{$question->kerdes}}</a><BR>
+                        <a href='#'>{{$question->kerdes}}ide</a><BR>
                     @endforeach
                 </div>
             </div>
