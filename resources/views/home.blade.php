@@ -13,14 +13,14 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                        @if(count($user->questions)>0)
+                        @if(count($user->questions)>0) <!-- Ha az adott usernek már vannak kérdései-->
                             @foreach($user->questions as $question)
-                                <a href='#'>{{$question->kerdes}}</a><BR>
+                                <a href="/q/{{ $question['id'] }}">{{$question->kerdes}} ({{$question->answer->count()}} válasz)</a><BR>
                             @endforeach
-                        @else
+                        @else <!-- Ha még nincs -->
                             Még nincs saját kérdésed
                         @endif
-                @elseif(isset($questions))
+                @elseif(isset($questions)) <!-- Usertől függetlenül megnézzük az összes kérdést-->
                     <div class="card-header">Összes kérdés</div>
                     <div class="card-body">
                     @if (session('status'))

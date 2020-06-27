@@ -49,4 +49,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tip::class);
     }
+    public function credits()
+    {
+        return $this->hasOne(Credit::class);
+    }
 }

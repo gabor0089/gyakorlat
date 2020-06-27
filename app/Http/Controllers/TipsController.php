@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use \App\User;
 use \App\Question;
 use \App\Tip;
+use \App\Credits;
 
 class TipsController extends Controller
 {
@@ -16,14 +17,13 @@ class TipsController extends Controller
    
     public function store()
     {
-
         $data=request()->validate([
         	'tip'=>'required',
         	'question_id'=>'required',
         ]);
         auth()->user()->tips()->create($data);
-        
         return redirect('/q/'.$data['question_id']);
+
     }
 
 }
