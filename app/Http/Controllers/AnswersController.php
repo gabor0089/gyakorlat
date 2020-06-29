@@ -33,15 +33,17 @@ class AnswersController extends Controller
             ['question_id',$data['question_id']],
             ['user_id',auth()->user()->id],
             ])->get();
-        //dd($tip[0]->tip);
-//        dd($question->created_at->addMinutes(10+$tip[0]->tip));
+
         if($question->created_at->addMinutes(10+$tip[0]->tip) > $valasz[0]->created_at)
         {
             Credit::where('user_id', auth()->user()->id)->increment('value',1);
         }
         else
         {
-            Credit::where('user_id', auth()->user()->id)->decrement('value',1);
+            if(auth()->user()->credits->value>0)
+            {
+                Credit::where('user_id', auth()->user()->id)->decrement('value',1);
+            }
         }   
         return redirect('/q/'.$data['question_id']);
     }
