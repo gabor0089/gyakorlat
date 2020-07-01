@@ -6,15 +6,15 @@
         <div class="col-md-8">
             <div class="card">
             <?php $van=false;?>
-                @if($question->tip->count() > 0)
+                @if($question->tip->count() > 0) <!-- Ha akárki már tippelt a kérdésre-->
                     @foreach($question->tip as $tips)
-                       @if($tips->user_id == Auth::user()->id)
+                       @if($tips->user_id == Auth::user()->id) <!-- Ha a tippelt user megegyezik a bejelentkezett userrel -->
                         <?php $van=true;?>
                        @endif
                     @endforeach
                     @if($van)
                         <div class="card-header">{{$question->kerdes}} <small>{{ $question->created_at }}</small><BR>
-                        @if($question->created_at->addMinutes(10)>=Carbon\Carbon::now())
+                        @if($question->created_at->addMinutes(10)>=Carbon\Carbon::now()) <!-- Ha a kérdésre még nem lehet választ adni a 10 perc miatt-->
                             Válaszadás ekkor: {{ $question->created_at->addMinutes(10) }}<BR>
                         @else
                             A válaszod:
@@ -39,7 +39,37 @@
                                 </div>
                             </form>
                         @endif
-                    @else
+                    @else <!-- A bejelentkezett user még nem tippelt -->
+                        @if(auth()->user()->credits->value>0)
+                            <div class="card-header">{{$question->kerdes}} <small>{{ $question->created_at }}</small><BR>Válaszadás ekkor: {{ $question->created_at->addMinutes(10) }}<BR>
+                            Te hány perc alatt írod meg a választ?
+                            <form method="POST" action="/tip">
+                                @csrf
+                                <input id='question_id' type='hidden' name='question_id' value='{{$question->id}}'>
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <input id="tip" type="text" class="form-control @error('tip') is-invalid @enderror" 
+                                            name="tip" value="{{ old('tip') }}" required autocomplete="tip" autofocus>
+
+                                        @error('tip')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-1 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('->') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        @else
+                            <div class="card-header">{{$question->kerdes}} <small>{{ $question->created_at }}</small><BR>Válaszadás ekkor: {{ $question->created_at->addMinutes(10) }}<BR>
+                            <b>Sajnos te nem adhatsz választ erre a kérdésre!</b>
+                        @endif
+                    @endif
+                @else <!-- Még senki nem tippelt a kérdésre-->
                         <div class="card-header">{{$question->kerdes}} <small>{{ $question->created_at }}</small><BR>Válaszadás ekkor: {{ $question->created_at->addMinutes(10) }}<BR>
                         Te hány perc alatt írod meg a választ?
                         <form method="POST" action="/tip">
@@ -63,39 +93,15 @@
                                 </div>
                             </div>
                         </form>
-                       @endif
-                    @else
-                        <div class="card-header">{{$question->kerdes}} <small>{{ $question->created_at }}</small><BR>Válaszadás ekkor: {{ $question->created_at->addMinutes(10) }}<BR>
-                        Te hány perc alatt írod meg a választ?
-                        <form method="POST" action="/tip">
-                            @csrf
-                            <input id='question_id' type='hidden' name='question_id' value='{{$question->id}}'>
-                            <div class="form-group row">
-                                <div class="col-md-2">
-                                    <input id="tip" type="text" class="form-control @error('tip') is-invalid @enderror" 
-                                        name="tip" value="{{ old('tip') }}" required autocomplete="tip" autofocus>
-
-                                    @error('tip')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-1 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('->') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    @endif         
-                    @if(isset($question->answer))
+                @endif         
+                @if(isset($question->answer)) <!-- Ha a kérdésre már érkezett válasz -->
                     <h4>Korábbi válaszok</h4>
                     @foreach ($question->answer as $answer)
-                     <HR>{{$answer->user->name}} {{$answer->created_at}} <BR> {{ $answer->valasz }}   
+                        <HR>{{$answer->user->name}} {{$answer->created_at}} <BR> {{ $answer->valasz }}   
                     @endforeach
-                    @else <h4>Még nem érkezettválasz</h4>
-                    @endif
+                @else 
+                    <h4>Még nem érkezettválasz</h4>
+                @endif
 
                 </div>
                 <div class="card-body">
